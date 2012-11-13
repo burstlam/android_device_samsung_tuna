@@ -39,4 +39,15 @@
             android:entryValues="@array/gpu_overclock_values"
             android:defaultValue="0" />
     </PreferenceCategory>
+
+    <!-- GPU -->
+    <PreferenceCategory android:key="category_wifi"
+        android:title="@string/category_wifi_title">
+    <ListPreference
+        android:key="wifi_pm"
+        android:title="@string/wifi_pm_title"
+        android:entries="@array/wifi_pm_entries"
+        android:entryValues="@array/wifi_pm_values"
+        android:defaultValue="0" />
+    </PreferenceCategory>
 </PreferenceScreen>

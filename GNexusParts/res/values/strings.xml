@@ -48,4 +48,8 @@
     <string name="category_gpu_title">GPU</string>
     <string name="gpu_overclock_title">Clock Speed</string>
 
+    <string name="category_wifi_title">Wi-Fi</string>
+    <string name="category_wifi_pm_title">Wi-Fi Power Management</string>
+    <string name="wifi_pm_title">Sleep Power Mode</string>
+
 </resources>

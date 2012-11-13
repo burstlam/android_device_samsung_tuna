@@ -53,12 +53,17 @@ public class DevicePreferenceActivity extends PreferenceFragment {
     public static final String KEY_CATEGORY_RADIO = "category_radio";
     public static final String KEY_HSPA = "hspa";
     public static final String KEY_GPU_OVERCLOCK = "gpu_overclock";
+    public static final String KEY_WIFI_PM = "wifi_pm";
+    private static final String PREF_ENABLED = "1";
+    private static final String TAG = "GNexParts_Wifi";
 
     private ColorTuningPreference mColorTuning;
     private GammaTuningPreference mGammaTuning;
     private ColorHackPresets mColorHackPresets;
     private VibratorTuningPreference mVibratorTuning;
     private ListPreference mGpuOverclock;
+    private ListPreference mWifiPM;
+    
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,5 +89,10 @@ public class DevicePreferenceActivity extends PreferenceFragment {
         mGpuOverclock.setEnabled(GpuOverclock.isSupported());
         mGpuOverclock.setOnPreferenceChangeListener(new GpuOverclock());
         GpuOverclock.updateSummary(mGpuOverclock, Integer.parseInt(mGpuOverclock.getValue()));
+
+        mWifiPM = (ListPreference) findPreference(KEY_WIFI_PM);
+        mWifiPM.setEnabled(WifiPowerManagement.isSupported());
+        mWifiPM.setOnPreferenceChangeListener(new WifiPowerManagement());
+        WifiPowerManagement.updateSummary(mWifiPM, Integer.parseInt(mWifiPM.getValue()));
     }
 }
