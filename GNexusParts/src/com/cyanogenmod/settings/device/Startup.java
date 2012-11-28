@@ -10,8 +10,9 @@ public class Startup extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent bootintent) {
         ColorTuningPreference.restore(context);
         GammaTuningPreference.restore(context);
-        GeneralFragmentActivity.restore(context);
         VibratorTuningPreference.restore(context);
+        GpuOverclock.restore(context);
+        WifiPowerManagement.restore(context);
         if (Hspa.isSupported()) {
             Hspa.restore(context);
         }
