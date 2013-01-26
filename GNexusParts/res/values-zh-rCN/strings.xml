@@ -55,4 +55,13 @@
     <string name="wifi_pm_title">休眠供电管理</string>
 
     <string name="vibrator_test_title">测试</string>
+
+    <string name="accel_calibration_title_head">距离传感器校准</string>
+    <string name="accel_calibration_summary_head">重新校正传感器</string>
+    <string name="accel_calibration_text">请将手机置放于水平平面上并点击校准键.完成后必须重新引导手机方可套用新数值.</string>
+    <string name="accel_calibration_reset_title">重置</string>
+    <string name="accel_calibration_calibrate_title">校准</string>
+    <string name="accel_calibration_close_title">关闭</string>
+    <string name="accel_calibration_success">传感器已校准</string>
+    <string name="accel_calibration_reset_success">校准数值已重置成系统默认</string>
 </resources>

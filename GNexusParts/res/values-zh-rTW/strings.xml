@@ -55,4 +55,13 @@
     <string name="gpu_overclock_title">操作時頻</string>
 
     <string name="vibrator_test_title">測試</string>
+
+    <string name="accel_calibration_title_head">距離傳感器校準</string>
+    <string name="accel_calibration_summary_head">重新校正傳感器</string>
+    <string name="accel_calibration_text">請將手機置放於水平平面上並點擊校准鍵.完成後必須重新啟動手機方可套用新數值.</string>
+    <string name="accel_calibration_reset_title">重置</string>
+    <string name="accel_calibration_calibrate_title">校準</string>
+    <string name="accel_calibration_close_title">關閉</string>
+    <string name="accel_calibration_success">傳感器已校準</string>
+    <string name="accel_calibration_reset_success">校準數值已重置成系統默認</string>
 </resources>

@@ -52,4 +52,13 @@
     <string name="category_wifi_pm_title">Wi-Fi Power Management</string>
     <string name="wifi_pm_title">Sleep Power Mode</string>
 
+    <string name="accel_calibration_title_head">Accelerometer calibration</string>
+    <string name="accel_calibration_summary_head">Calibrates a misaligned accelerometer</string>
+    <string name="accel_calibration_text">Put your device on a flat surface and hit Calibrate to calibrate your accelerometer. You must restart your device for changes to take effect.</string>
+    <string name="accel_calibration_reset_title">Reset</string>
+    <string name="accel_calibration_calibrate_title">Calibrate</string>
+    <string name="accel_calibration_close_title">Close</string>
+    <string name="accel_calibration_success">Accelerometer calibrated</string>
+    <string name="accel_calibration_reset_success">Calibration has been reset</string>
+
 </resources>
