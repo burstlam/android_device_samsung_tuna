@@ -37,7 +37,14 @@ TARGET_USE_O3 := true
 ARCH_ARM_HAVE_ARMV7A :=true
 ARCH_ARM_USE_NON_NEON_MEMCPY :=true
 
+TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
+# Define kernel config for inline building
+# TARGET_KERNEL_CONFIG := tuna_defconfig
+# TARGET_KERNEL_SOURCE := home/burst/project/lk
+
+TARGET_PREBUILT_KERNEL := device/samsung/tuna/kernel
 TARGET_NO_BOOTLOADER := true
 
 BOARD_KERNEL_BASE := 0x80000000
