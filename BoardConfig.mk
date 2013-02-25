@@ -35,7 +35,7 @@ TARGET_USE_LINARO_STRING_ROUTINES :=true
 TARGET_GCC_VERSION := 4.7
 TARGET_USE_O3 := true
 ARCH_ARM_HAVE_ARMV7A :=true
-ARCH_ARM_USE_NON_NEON_MEMCPY :=true
+#ARCH_ARM_USE_NON_NEON_MEMCPY :=true
 
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
