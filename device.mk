@@ -94,14 +94,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
 
-# LED brightness property
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.led-brightness=31
-
-# Charging LED property
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.enable-charging-led=0
-
 # NFC
 PRODUCT_PACKAGES += \
         libnfc \
@@ -215,10 +207,10 @@ PRODUCT_PACKAGES += \
 	setup_fs
 
 # for bugmailer
-PRODUCT_PACKAGES += send_bug
-PRODUCT_COPY_FILES += \
-	system/extras/bugmailer/bugmailer.sh:system/bin/bugmailer.sh \
-	system/extras/bugmailer/send_bug:system/bin/send_bug
+# PRODUCT_PACKAGES += send_bug
+# PRODUCT_COPY_FILES += \
+#	system/extras/bugmailer/bugmailer.sh:system/bin/bugmailer.sh \
+#	system/extras/bugmailer/send_bug:system/bin/send_bug
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
