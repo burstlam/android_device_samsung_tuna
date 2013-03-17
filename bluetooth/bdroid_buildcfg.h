@@ -19,4 +19,12 @@
 
 #define BTM_DEF_LOCAL_NAME   "Galaxy Nexus 2"
 
+#define A2DP_HW_SYSFS_TUNER "/sys/devices/platform/tuna/a2dp_tuning"
+#define A2DP_HW_SYSFS_TUNER_OFF "0"
+#define A2DP_HW_SYSFS_TUNER_ON "1"
+
+#define A2DP_HW_SYSFS_TUNER "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
+#define A2DP_HW_SYSFS_TUNER_OFF "0"
+#define A2DP_HW_SYSFS_TUNER_ON "230000"
+
 #endif
