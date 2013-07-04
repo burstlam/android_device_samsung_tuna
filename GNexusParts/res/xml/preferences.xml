@@ -41,7 +41,7 @@
             android:title="@string/gpu_overclock_title"
             android:entries="@array/gpu_overclock_entries"
             android:entryValues="@array/gpu_overclock_values"
-            android:defaultValue="0" />
+            android:defaultValue="1" />
     </PreferenceCategory>
 
     <!-- GPU -->
