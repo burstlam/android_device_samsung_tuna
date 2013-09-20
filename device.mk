@@ -124,11 +124,7 @@ PRODUCT_PACKAGES += \
 
 # Custom Package
 PRODUCT_PACKAGES += \
-        Apollo \
-        CMFileManager \
-        HALO \
-        libcyanogen-dsp \
-        audio_effects.conf 
+        GNexusParts \
 
 # Key maps
 PRODUCT_COPY_FILES += \
