@@ -31,6 +31,7 @@ TARGET_CPU_SMP := true
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a9
+USE_LINARO_COMPILER_FLAGS= yes
 
 TARGET_NO_BOOTLOADER := true
 
@@ -90,6 +91,7 @@ WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_HAVE_BLUETOOTH_NO_STRICT := true
 
 BOARD_LIB_DUMPSTATE := libdumpstate.tuna
 
