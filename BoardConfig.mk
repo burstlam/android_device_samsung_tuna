@@ -73,6 +73,8 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 #TARGET_PROVIDES_INIT_RC := true
 #TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 
+LIBLIGHTS_SUPPORT_CHARGING_LED :=true
+
 # Wifi related defines
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 WPA_SUPPLICANT_VERSION      := VER_0_8_X
@@ -92,9 +94,9 @@ BOARD_LIB_DUMPSTATE := libdumpstate.tuna
 
 BOARD_USES_SECURE_SERVICES := true
 
-BOARD_SEPOLICY_DIRS := \
+BOARD_SEPOLICY_DIRS += \
         device/samsung/tuna/sepolicy
 
-BOARD_SEPOLICY_UNION := \
+BOARD_SEPOLICY_UNION += \
         genfs_contexts \
         file_contexts
