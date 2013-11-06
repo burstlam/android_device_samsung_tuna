@@ -28,6 +28,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Button;
 import android.util.Log;
+import android.os.Vibrator;
 
 /**
  * Special preference type that allows configuration of both the ring volume and
@@ -35,7 +36,7 @@ import android.util.Log;
  */
 public class VibratorTuningPreference extends DialogPreference implements OnClickListener {
 
-    private static final String TAG = "vibrator...";
+    private static final String TAG = "VIBRATOR...";
 
     private static final int[] SEEKBAR_ID = new int[] {
             R.id.vibrator_seekbar
@@ -86,6 +87,9 @@ public class VibratorTuningPreference extends DialogPreference implements OnClic
     private void SetupButtonClickListeners(View view) {
             Button mDefaultButton = (Button)view.findViewById(R.id.btnvibratorDefault);
             mDefaultButton.setOnClickListener(this);
+
+            Button mTestButton = (Button)view.findViewById(R.id.btnvibratorTest);
+            mTestButton.setOnClickListener(this);
     }
 
     @Override
@@ -106,7 +110,7 @@ public class VibratorTuningPreference extends DialogPreference implements OnClic
     }
 
     /**
-     * Restore screen color tuning from SharedPreferences. (Write to kernel.)
+     * Restore vibrator tuning from SharedPreferences. (Write to kernel.)
      *
      * @param context The context to read the SharedPreferences from
      */
@@ -121,13 +125,16 @@ public class VibratorTuningPreference extends DialogPreference implements OnClic
         for (String filePath : FILE_PATH) {
             String sDefaultValue = Utils.readOneLine(filePath);
             int iValue = sharedPrefs.getInt(filePath, Integer.valueOf(sDefaultValue));
-            if (bFirstTime)
+            if (bFirstTime){
                 Utils.writeValue(filePath, "100");
-            else
+                Log.d(TAG, "restore default value: 100 File: " + filePath);
+            }
+            else{
                 Utils.writeValue(filePath, String.valueOf((long) iValue));
+                Log.d(TAG, "restore: iValue: " + iValue + " File: " + filePath);
+            }
         }
-        if (bFirstTime)
-        {
+        if (bFirstTime) {
             SharedPreferences.Editor editor = sharedPrefs.edit();
             editor.putBoolean("FirstTimevibrator", false);
             editor.commit();
@@ -172,8 +179,6 @@ public class VibratorTuningPreference extends DialogPreference implements OnClic
             mFilePath = filePath;
             iOffset = offsetValue;
             iMax = maxValue;
-
-            SharedPreferences sharedPreferences = getSharedPreferences();
 
             // Read original value
             if (Utils.fileExists(mFilePath)) {
@@ -256,6 +261,9 @@ public class VibratorTuningPreference extends DialogPreference implements OnClic
             case R.id.btnvibratorDefault:
                     setDefaultSettings();
                     break;
+            case R.id.btnvibratorTest:
+                    testVibration();
+                    break;
         }
     }
 
@@ -263,4 +271,8 @@ public class VibratorTuningPreference extends DialogPreference implements OnClic
         mSeekBars[0].setNewValue(100);
     }
 
+    private void testVibration() {
+        Vibrator vib = (Vibrator) this.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vib.vibrate(1000);
+    }
 }

@@ -24,13 +24,12 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
 import android.widget.Button;
 import android.util.Log;
 
 /**
- * Special preference type that allows configuration of both the ring volume and
- * notification volume.
+ * Special preference type that allows to set a pre-configuration of Color and Gamma
+ * Value on Nexus Devices.
  */
 public class ColorHackPresets extends DialogPreference implements OnClickListener {
 
@@ -49,13 +48,8 @@ public class ColorHackPresets extends DialogPreference implements OnClickListene
             "/sys/class/misc/samoled_color/blue_multiplier"
     };
 
-    // Track instances to know when to restore original color
-    // (when the orientation changes, a new dialog is created before the old one
-    // is destroyed)
-    private static int sInstances = 0;
-
     // Align MAX_VALUE with Voodoo Control settings
-    private static final int MAX_VALUE = Integer.MAX_VALUE - 2;
+    private static final int MAX_VALUE = 2000000000;
 
     public ColorHackPresets(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -66,9 +60,6 @@ public class ColorHackPresets extends DialogPreference implements OnClickListene
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
-
-        sInstances++;
-
         SetupButtonClickListeners(view);
     }
 
@@ -89,30 +80,20 @@ public class ColorHackPresets extends DialogPreference implements OnClickListene
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
-
-        sInstances--;
-
     }
 
     /**
-     * Restore screen color tuning from SharedPreferences. (Write to kernel.)
+     * Check whether the running kernel supports color/gamma tuning or not.
      * 
-     * @param context The context to read the SharedPreferences from
-     */
-    public static void restore(Context context) {
-        if (!isSupported()) {
-            return;
-        }
-
-    }
-
-    /**
-     * Check whether the running kernel supports color tuning or not.
-     * 
-     * @return Whether color tuning is supported or not
+     * @return Whether color/gamma tuning is supported or not
      */
     public static boolean isSupported() {
         boolean supported = true;
+        for (String filePath : FILE_PATH_MULTI) {
+            if (!Utils.fileExists(filePath)) {
+                supported = false;
+            }
+        }
         for (String filePath : FILE_PATH_GAMMA) {
             if (!Utils.fileExists(filePath)) {
                 supported = false;
@@ -147,16 +128,43 @@ public class ColorHackPresets extends DialogPreference implements OnClickListene
 
     private void WriteMultiplier(Double fValue , int iPos) {
         int iValue = (int) ((double) MAX_VALUE * fValue);
+        int iValue2;
         Utils.writeColor(FILE_PATH_MULTI[iPos], iValue);
-        Log.i(TAG,"KalimAz: Multiplier: " + iPos+ " Value " + iValue );
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        iValue2 = sharedPrefs.getInt(FILE_PATH_MULTI[iPos], iValue);
+        //storing to SharedPreferences because of reloaded @ startup
+        Editor editor = getEditor();
+        editor.putInt(FILE_PATH_MULTI[iPos], iValue);
+        editor.commit();
+        Log.d(TAG, "Changing ColorMultiplier " +iPos+ " from:" +iValue2+ " to: " +iValue);
     }
+
 
     private void WriteGamma(int iValue , int iPos) {
+        int iValue2;
         Utils.writeValue(FILE_PATH_GAMMA[iPos], String.valueOf((long) iValue));
-        Log.i(TAG,"KalimAz: Gamma: " + iPos+ " Value " + iValue );
-    }
+        
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        iValue2 = sharedPrefs.getInt(FILE_PATH_GAMMA[iPos], iValue);
+        //storing to SharedPreferences because of reloaded @ startup
+        Editor editor = getEditor();
+        editor.putInt(FILE_PATH_GAMMA[iPos], iValue);
+        editor.commit();
+        Log.d(TAG, "Changing GammaValue " +iPos+ " from:" +iValue2+ " to: " +iValue);
+	}
 
     private void Preset1() {
+        WriteMultiplier(0.5, 0);
+        WriteMultiplier(0.5, 1);
+        WriteMultiplier(0.5, 2);
+        WriteGamma(-4, 0);
+        WriteGamma(0, 1);
+        WriteGamma(5, 2);
+        WriteGamma(0, 3);
+    }
+
+    private void Preset2() {
         WriteMultiplier(1.0, 0);
         WriteMultiplier(1.0, 1);
         WriteMultiplier(1.0, 2);
@@ -166,22 +174,14 @@ public class ColorHackPresets extends DialogPreference implements OnClickListene
         WriteGamma(0, 3);
     }
 
-    private void Preset2() {
-        WriteMultiplier(0.8575, 0);
-        WriteMultiplier(0.8575, 1);
-        WriteMultiplier(0.8575, 2);
-        WriteGamma(-12, 0);
-        WriteGamma(12, 1);
-        WriteGamma(-12, 2);
-    }
-
     private void Preset3() {
-        WriteMultiplier(0.458602179, 0);
-        WriteMultiplier(0.6311828147, 1);
-        WriteMultiplier(0.82258, 2);
-        WriteGamma(-31, 0);
-        WriteGamma(-18, 1);
-        WriteGamma(-0, 2);
+        WriteMultiplier(0.35, 0);
+        WriteMultiplier(0.38, 1);
+        WriteMultiplier(0.5, 2);
+        WriteGamma(0, 0);
+        WriteGamma(0, 1);
+        WriteGamma(0, 2);
+        WriteGamma(0, 3);
     }
 
     private void Preset4() {
@@ -191,6 +191,7 @@ public class ColorHackPresets extends DialogPreference implements OnClickListene
         WriteGamma(-31, 0);
         WriteGamma(-30, 1);
         WriteGamma(-14, 2);
+        WriteGamma(0, 3);
     }
 
     private void Preset5() {
@@ -200,15 +201,17 @@ public class ColorHackPresets extends DialogPreference implements OnClickListene
         WriteGamma(-44, 0);
         WriteGamma(-44, 1);
         WriteGamma(-7, 2);
+        WriteGamma(0, 3);
     }
 
     private void Preset6() {
-        WriteMultiplier(1.0, 0);
-        WriteMultiplier(0.7688, 1);
-        WriteMultiplier(0.2473, 2);
-        WriteGamma(-57, 0);
-        WriteGamma(-75, 1);
-        WriteGamma(45, 2);
+        WriteMultiplier(0.45, 0);
+        WriteMultiplier(0.48, 1);
+        WriteMultiplier(0.5, 2);
+        WriteGamma(-4, 0);
+        WriteGamma(0, 1);
+        WriteGamma(5, 2);
+        WriteGamma(0, 3);
     }
 
 }
