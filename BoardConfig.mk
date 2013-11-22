@@ -48,6 +48,7 @@ TARGET_BOARD_PLATFORM := omap4
 TARGET_BOOTLOADER_BOARD_NAME := tuna
 
 BOARD_EGL_CFG := device/samsung/tuna/egl.cfg
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
 BOARD_CREATE_TUNA_HDCP_KEYS_SYMLINK := true
 
 #BOARD_USES_HGL := true
@@ -97,9 +98,9 @@ BOARD_HAL_STATIC_LIBRARIES := libdumpstate.tuna
 
 BOARD_USES_SECURE_SERVICES := true
 
-BOARD_SEPOLICY_DIRS := \
+BOARD_SEPOLICY_DIRS += \
         device/samsung/tuna/sepolicy
 
-BOARD_SEPOLICY_UNION := \
+BOARD_SEPOLICY_UNION += \
         genfs_contexts \
         file_contexts
