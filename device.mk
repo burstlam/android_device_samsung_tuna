@@ -81,6 +81,10 @@ PRODUCT_COPY_FILES += \
 	device/samsung/tuna/media_codecs.xml:system/etc/media_codecs.xml \
 	device/samsung/tuna/gps.conf:system/etc/gps.conf
 
+# Gnexus Parts
+PRODUCT_PACKAGES += \
+		GNexusParts \
+
 # Wifi
 ifneq ($(TARGET_PREBUILT_WIFI_MODULE),)
 PRODUCT_COPY_FILES += \
