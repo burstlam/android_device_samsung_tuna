@@ -95,7 +95,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # Torch
 PRODUCT_PACKAGES += \
-        Torch
+        OmniTorch
 
 # NFC
 PRODUCT_PACKAGES += \
