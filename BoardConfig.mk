@@ -41,7 +41,7 @@ BOARD_KERNEL_BASE := 0x80000000
 # BOARD_KERNEL_CMDLINE :=
 
 # Define kernel config for inline building
-TARGET_KERNEL_CONFIG := omnirom_tuna_defconfig
+TARGET_KERNEL_CONFIG := askpkk_tuna_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/tuna
 
 TARGET_PREBUILT_KERNEL := device/samsung/tuna/kernel
@@ -51,6 +51,7 @@ TARGET_BOARD_PLATFORM := omap4
 TARGET_BOOTLOADER_BOARD_NAME := tuna
 
 BOARD_EGL_CFG := device/samsung/tuna/egl.cfg
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
 BOARD_CREATE_TUNA_HDCP_KEYS_SYMLINK := true
 
 #BOARD_USES_HGL := true
@@ -68,7 +69,6 @@ RECOVERY_FSTAB_VERSION=2
 
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 TARGET_RECOVERY_UI_LIB := librecovery_ui_tuna
-BOARD_RECOVERY_SWIPE := true
 
 # device-specific extensions to the updater binary
 TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_tuna
@@ -141,7 +141,6 @@ SP1_MOUNTABLE := 1
 #TW_HAS_DOWNLOAD_MODE := true # does not work on Galaxy Nexus
 TW_FLASH_FROM_STORAGE := true
 TW_NO_USB_STORAGE := true
-
 
 #TW_INCLUDE_DUMLOCK := true
 TW_INTERNAL_STORAGE_PATH := "/data/media"
