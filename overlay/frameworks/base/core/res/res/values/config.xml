@@ -274,4 +274,7 @@
     <!-- Enable translucent lockscreen-->
     <bool name="config_enableLockScreenTranslucentDecor">true</bool>
 
+    <!-- Whether WiFi display is supported by this device. -->
+    <bool name="config_enableWifiDisplay">true</bool>
+
 </resources>
