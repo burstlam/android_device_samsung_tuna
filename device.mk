@@ -19,6 +19,12 @@
 #
 # Everything in this directory will become public
 
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+LOCAL_KERNEL := device/samsung/tuna/kernel
+else
+LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
 DEVICE_PACKAGE_OVERLAYS := device/samsung/tuna/overlay
 
 # This device is xhdpi.  However the platform doesn't
@@ -60,6 +66,10 @@ PRODUCT_COPY_FILES += \
 	device/samsung/tuna/audio/audio_policy.conf:system/etc/audio_policy.conf \
 	device/samsung/tuna/audio_effects.conf:system/vendor/etc/audio_effects.conf
 
+# Prebuilt
+PRODUCT_COPY_FILES += \
+    $(call find-copy-subdir-files,*,device/samsung/tuna/prebuilt/system,system)
+
 PRODUCT_PACKAGES += \
 	tuna_hdcp_keys
 
@@ -67,12 +77,13 @@ PRODUCT_PACKAGES += \
 #	keystore.tuna
 
 PRODUCT_COPY_FILES += \
-	device/samsung/tuna/init.tuna.rc:root/init.tuna.rc \
-	device/samsung/tuna/init.tuna.usb.rc:root/init.tuna.usb.rc \
-	device/samsung/tuna/fstab.tuna:root/fstab.tuna \
-	device/samsung/tuna/ueventd.tuna.rc:root/ueventd.tuna.rc \
-	device/samsung/tuna/media_profiles.xml:system/etc/media_profiles.xml \
-	device/samsung/tuna/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_KERNEL):kernel \
+    device/samsung/tuna/init.tuna.rc:root/init.tuna.rc \
+    device/samsung/tuna/init.tuna.usb.rc:root/init.tuna.usb.rc \
+    device/samsung/tuna/fstab.tuna:root/fstab.tuna \
+    device/samsung/tuna/ueventd.tuna.rc:root/ueventd.tuna.rc \
+    device/samsung/tuna/media_profiles.xml:system/etc/media_profiles.xml \
+    device/samsung/tuna/media_codecs.xml:system/etc/media_codecs.xml \
     device/samsung/tuna/gps.conf:system/etc/gps.conf \
     device/samsung/tuna/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
     device/samsung/tuna/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
