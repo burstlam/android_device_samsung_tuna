@@ -65,6 +65,9 @@ on fs
 	mkdir /factory 0775 radio radio
 	mount_all /fstab.tuna
 	swapon_all /fstab.tuna
+    # workaround for hung boots with nodiratime+noatime or barrier=0+data=writeback
+    # which occur when used as mount options for userdata via the tuna fstab
+    mount ext4 /dev/block/platform/omap/omap_hsmmc.0/by-name/userdata /data remount nosuid nodev noatime nodiratime barrier=0
 	restorecon /dev/block/platform/omap/omap_hsmmc.0/by-name/radio
 	mount ext4 /dev/block/platform/omap/omap_hsmmc.0/by-name/efs /factory rw remount
 	restorecon /factory
@@ -277,3 +280,9 @@ service iprenew_eth0 /system/bin/dhcpcd -n
 
 service battery_charger /charger
 	class charger
+
+service dvbootscript /sbin/dvbootscript.sh
+	class main
+	user root
+	group root
+	oneshot
