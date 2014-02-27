@@ -20,18 +20,14 @@ import org.cyanogenmod.hardware.util.FileUtils;
 import java.io.File;
 
 public class DisplayColorCalibration {
-    private static final String[] COLOR_FILE = new String[] {
+    private static final String[] FILE_PATH = new String[] {
             "/sys/class/misc/samoled_color/red_multiplier",
             "/sys/class/misc/samoled_color/green_multiplier",
             "/sys/class/misc/samoled_color/blue_multiplier"
     };
-    private static final String COLOR_FILE_V2 = "/sys/class/misc/colorcontrol/multiplier";
 
     public static boolean isSupported() {
-        if (new File(COLOR_FILE_V2).exists()) {
-            return true;
-        }
-        for (String filePath : COLOR_FILE) {
+        for (String filePath : FILE_PATH) {
             if (!new File(filePath).exists()) {
                 return false;
             }
@@ -47,38 +43,23 @@ public class DisplayColorCalibration {
         return 0;
     }
 
-    public static String getCurColors() {
+    public static String getCurColors()  {
         StringBuilder values = new StringBuilder();
-        if (new File(COLOR_FILE_V2).exists()) {
-            String[] valuesSplit = FileUtils.readOneLine(COLOR_FILE_V2).split(" ");
-            for (int i = 0; i < valuesSplit.length; i++) {
-                values.append(Long.toString(Long.valueOf(valuesSplit[i]) / 2)).append(" ");
-            }
-        } else {
-            for (String filePath : COLOR_FILE) {
-                values.append(Long.toString(Long.valueOf(
-                        FileUtils.readOneLine(filePath)) / 2)).append(" ");
-            }
+        for (String filePath : FILE_PATH) {
+            values.append(Long.toString(Long.valueOf(
+                    FileUtils.readOneLine(filePath)) / 2)).append(" ");
         }
         return values.toString();
     }
 
-    public static boolean setColors(String colors) {
+    public static boolean setColors(String colors)  {
         String[] valuesSplit = colors.split(" ");
-        if (new File(COLOR_FILE_V2).exists()) {
-            StringBuilder realColors = new StringBuilder();
-            for (int i = 0; i < valuesSplit.length; i++) {
-                realColors.append(Long.toString(Long.valueOf(valuesSplit[i]) * 2)).append(" ");
-            }
-            return FileUtils.writeLine(COLOR_FILE_V2, realColors.toString());
-        } else {
-            boolean result = true;
-            for (int i = 0; i < valuesSplit.length; i++) {
-                String targetFile = COLOR_FILE[i];
-                result &= FileUtils.writeLine(targetFile, Long.toString(
-                        Long.valueOf(valuesSplit[i]) * 2));
-            }
-            return result;
+        boolean result = true;
+        for (int i = 0; i < valuesSplit.length; i++) {
+            String targetFile = FILE_PATH[i];
+            result &= FileUtils.writeLine(targetFile, Long.toString(
+                    Long.valueOf(valuesSplit[i]) * 2));
         }
+        return result;
     }
 }
