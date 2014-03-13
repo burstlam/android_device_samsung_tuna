@@ -85,6 +85,9 @@ on fs
 	mount ext4 /dev/block/platform/omap/omap_hsmmc.0/by-name/efs /factory ro remount
 	setprop ro.crypto.fuse_sdcard true
 
+# change permission to fix mounting issue 
+    chown root root /mnt/media_rw
+
 # change permissions for mtd device
 	chmod 0660 /dev/mtd/mtd0
 	chown media media /dev/mtd/mtd0
