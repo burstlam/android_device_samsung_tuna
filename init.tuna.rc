@@ -132,6 +132,9 @@ on fs
 	chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
 	chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
 
+# zRAM read only 1 page at a time
+    write /proc/sys/vm/page-cluster 0
+
 # backlight
 	chown system system /sys/class/backlight/s6e8aa0/brightness
 
