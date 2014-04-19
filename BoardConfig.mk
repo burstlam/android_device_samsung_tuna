@@ -35,6 +35,9 @@ TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a9
 
+# Opt out of LOWMEM bionic optimizations
+TARGET_ARCH_LOWMEM := true
+
 TARGET_NO_BOOTLOADER := true
 
 BOARD_KERNEL_BASE := 0x80000000
