@@ -37,6 +37,7 @@ TARGET_CPU_VARIANT := cortex-a9
 
 # Opt out of LOWMEM bionic optimizations
 TARGET_ARCH_LOWMEM := true
+TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
 TARGET_NO_BOOTLOADER := true
 
@@ -45,11 +46,12 @@ BOARD_KERNEL_BASE := 0x80000000
 
 TARGET_GCC_VERSION_AND := LINARO
 TARGET_GCC_VERSION_ARM := LK
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.7
 
 # Define kernel config for inline building
 TARGET_KERNEL_CONFIG := tuna_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/tuna
-TARGET_PREBUILT_KERNEL := device/samsung/tuna/zImage
+#TARGET_PREBUILT_KERNEL := device/samsung/tuna/zImage
 HAS_PREBUILT_KERNEL := true
 
 TARGET_PREBUILT_KERNEL := device/samsung/tuna/kernel
